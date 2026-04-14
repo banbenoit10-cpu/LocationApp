@@ -1,0 +1,26 @@
+*.pyc
+__pycache__/
+.idea/
+.vscode/
+
+# Ignorer la base de données SQLite
+db.sqlite3
+# Ignorer les fichiers compilés Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+.env
+.env.local
+.env.*.local
+
+# Fichiers uploadés
+Back/back/media/
+
+# Frontend
+front/node_modules/
+front/dist/
+
+# Logs
+*.log

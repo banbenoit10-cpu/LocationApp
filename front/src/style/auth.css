@@ -1,0 +1,320 @@
+/* ============================================
+   AUTH.CSS — Login & Register
+   Matches EverGreen home page aesthetic
+   ============================================ */
+
+:root {
+    --text: #1a1a1a;
+    --text2: #6b7280;
+    --bg: #fafafa;
+    --white: #ffffff;
+    --border: #e5e7eb;
+    --success: #4ade80;
+    --success-dark: #22c55e;
+    --success-text: #ffffff;
+    --error: #f87171;
+    --error-bg: rgba(248, 113, 113, 0.12);
+}
+
+html[data-theme="dark"] {
+    --text: #eceef1;
+    --text2: #b5bcc6;
+    --bg: #1a1d20;
+    --white: #151617;
+    --border: #2a2f35;
+    --success: #4fbf78;
+    --success-dark: #3fa366;
+    --success-text: #0f1113;
+    --error: #ea6c61;
+    --error-bg: rgba(234, 108, 97, 0.15);
+}
+
+/* ── Page — fond plein écran avec image ─────── */
+.auth-page {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&auto=format&fit=crop")
+    center center / cover no-repeat;
+    position: relative;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* ── Overlay sombre comme la home ───────────── */
+.auth-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+            135deg,
+            rgba(0, 0, 0, 0.6) 0%,
+            rgba(0, 0, 0, 0.4) 100%
+    );
+}
+
+/* ── Carte blanche centrale ─────────────────── */
+.auth-card {
+    position: relative;
+    z-index: 2;
+    background: color-mix(in srgb, var(--white) 97%, transparent);
+    backdrop-filter: blur(16px);
+    border-radius: 24px;
+    padding: 40px 40px 36px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow:
+            0 24px 80px rgba(0, 0, 0, 0.35),
+            0 4px 16px rgba(0, 0, 0, 0.15);
+
+    /* Animation d'entrée */
+    animation: slideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Animation slideUp ──────────────────────── */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(48px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ── Pill switcher Login / Register ─────────── */
+.auth-switcher {
+    display: flex;
+    background: var(--bg);
+    border-radius: 999px;
+    padding: 4px;
+    margin-bottom: 32px;
+    gap: 4px;
+}
+
+.auth-switcher button {
+    flex: 1;
+    padding: 10px 0;
+    border: none;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text2);
+    transition: all 0.25s ease;
+}
+
+.auth-switcher button:hover {
+    color: var(--text);
+}
+
+.auth-switcher button.active {
+    background: var(--white);
+    color: var(--text);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* ── Header titre + sous-titre ──────────────── */
+.auth-header {
+    margin-bottom: 28px;
+}
+
+.auth-header h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+}
+
+.auth-header p {
+    font-size: 14px;
+    color: var(--text2);
+}
+
+/* ── Message d'erreur ───────────────────────── */
+.error-msg {
+    background: var(--error-bg);
+    border: 1px solid var(--error);
+    color: var(--error);
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    animation: slideUp 0.3s ease;
+}
+
+/* ── Floating label inputs ──────────────────── */
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 20px 16px 8px;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    font-size: 15px;
+    color: var(--text);
+    background: var(--bg);
+    outline: none;
+    transition:
+            border-color 0.2s ease,
+            background 0.2s ease,
+            box-shadow 0.2s ease;
+}
+
+.input-group input:focus {
+    border-color: var(--success);
+    background: var(--white);
+    box-shadow: 0 0 0 4px rgba(79, 191, 120, 0.12);
+}
+
+/* Le label flottant */
+.input-group label {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    color: var(--text2);
+    pointer-events: none;
+    transition: all 0.2s ease;
+    background: transparent;
+}
+
+/* Label monte quand input est focus ou rempli */
+.input-group input:focus ~ label,
+.input-group input:not(:placeholder-shown) ~ label {
+    top: 10px;
+    transform: translateY(0);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--success);
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+/* ── Animation shake sur erreur ─────────────── */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%       { transform: translateX(-10px); }
+    40%       { transform: translateX(10px); }
+    60%       { transform: translateX(-6px); }
+    80%       { transform: translateX(6px); }
+}
+
+.input-error {
+    animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+.input-error input {
+    border-color: var(--error) !important;
+    box-shadow: 0 0 0 4px var(--error-bg) !important;
+}
+
+/* ── Forgot password ────────────────────────── */
+.auth-forgot {
+    text-align: right;
+    margin-top: -10px;
+    margin-bottom: 24px;
+}
+
+.auth-forgot span {
+    font-size: 13px;
+    color: var(--text2);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.auth-forgot span:hover {
+    color: var(--success);
+}
+
+/* ── Bouton submit vert comme la home ───────── */
+.btn-auth {
+    width: 100%;
+    padding: 14px;
+    background: var(--success);
+    color: var(--success-text);
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition:
+            background 0.2s ease,
+            transform 0.15s ease,
+            box-shadow 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+}
+
+.btn-auth:hover:not(:disabled) {
+    background: var(--success-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(74, 222, 128, 0.4);
+}
+
+.btn-auth:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn-auth:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+/* ── Spinner de chargement ──────────────────── */
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2.5px solid rgba(26, 26, 26, 0.15);
+    border-top-color: var(--success);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+html[data-theme="dark"] .spinner {
+    border-color: rgba(236, 238, 241, 0.15);
+    border-top-color: var(--success);
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ── Footer lien vers l'autre page ─────────── */
+.auth-footer {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 14px;
+    color: var(--text2);
+}
+
+.auth-footer span {
+    color: var(--success);
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.auth-footer span:hover {
+    color: var(--success-dark);
+    text-decoration: underline;
+}
+
+/* ── Responsive mobile ──────────────────────── */
+@media (max-width: 480px) {
+    .auth-card {
+        margin: 16px;
+        padding: 32px 24px 28px;
+    }
+}
